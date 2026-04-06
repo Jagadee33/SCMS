@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 # SCMS
+
 Smart College Management System
-=======
+
 # Smart College Management System
 
 A comprehensive college management system built with React.js frontend, Java Spring Boot backend, and MySQL database.
@@ -17,41 +17,50 @@ A comprehensive college management system built with React.js frontend, Java Spr
 ## Features
 
 ### Core Modules
+
 1. **User Authentication & Authorization**
+
    - Login/Logout functionality
    - Role-based access control (Admin, Faculty, Student)
    - JWT token management
 
 2. **Student Management**
+
    - Student registration and profile management
    - Academic records tracking
    - Attendance management
 
 3. **Faculty Management**
+
    - Faculty profile management
    - Course assignment
    - Performance evaluation
 
 4. **Course Management**
+
    - Course creation and scheduling
    - Enrollment management
    - Grade management
 
 5. **Department Management**
+
    - Department creation and management
    - Faculty assignment to departments
 
 6. **Attendance System**
+
    - Mark and track attendance
    - Generate attendance reports
    - Attendance analytics
 
 7. **Examination Management**
+
    - Exam scheduling
    - Grade entry and management
    - Result generation
 
 8. **Library Management**
+
    - Book catalog management
    - Issue/return tracking
    - Fine management
@@ -102,6 +111,7 @@ smart-college-management-system/
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - Java 11 or higher
 - Maven
@@ -110,16 +120,19 @@ smart-college-management-system/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd smart-college-management-system
    ```
 
 2. **Database Setup**
+
    - Create MySQL database named `college_management`
    - Run the database scripts from `database/` directory
 
 3. **Backend Setup**
+
    ```bash
    cd backend
    mvn clean install
@@ -134,6 +147,7 @@ smart-college-management-system/
    ```
 
 ### Default Credentials
+
 - **Admin**: admin@college.com / admin123
 - **Faculty**: faculty@college.com / faculty123
 - **Student**: student@college.com / student123
@@ -153,4 +167,3 @@ The API documentation is available at `http://localhost:8080/api-docs` when the 
 ## License
 
 This project is licensed under the MIT License.
->>>>>>> b9096731 (first commit)
