@@ -549,6 +549,5 @@ public class NotificationService {
                 return List.of("Exam reminder", "Math exam tomorrow at 10 AM", "Physics exam next week").get(index % 2);
             default:
                 return List.of("System notification", "Campus WiFi maintenance scheduled", "New course registration open").get(index % 1);
-        }.get(index % 2);
+        }
     }
-}

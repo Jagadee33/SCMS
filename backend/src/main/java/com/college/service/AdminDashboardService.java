@@ -707,7 +707,7 @@ public class AdminDashboardService {
             "alertId", "ALERT004",
             "type", "backup_failure",
             "severity", "warning",
-            "message": "Last night's backup failed to complete",
+            "message", "Last night's backup failed to complete",
             "timestamp", now.minusHours(8),
             "status", "resolved"
         ));
