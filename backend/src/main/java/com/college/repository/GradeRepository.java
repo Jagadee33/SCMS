@@ -91,4 +91,8 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
     
     // Check if grade exists for student, course, and grade type
     boolean existsByStudentAndCourseAndGradeType(Student student, Course course, String gradeType);
+    
+    // Find grades by student ID
+    @Query("SELECT g FROM Grade g WHERE g.student.id = :studentId")
+    List<Grade> findByStudentId(@Param("studentId") Long studentId);
 }

@@ -95,7 +95,7 @@ public class StudyScheduleOptimizationService {
         // Analyze grade distribution by subject/time
         Map<String, Double> subjectPerformance = grades.stream()
             .collect(Collectors.groupingBy(
-                grade -> grade.getCourse() != null ? grade.getCourse().getCourseName() : "General",
+                grade -> grade.getCourse() != null ? grade.getCourse().getName() : "General",
                 Collectors.averagingDouble(Grade::getGradePoints)
             ));
         
@@ -132,7 +132,7 @@ public class StudyScheduleOptimizationService {
     private List<String> identifyStudentStrengths(List<Grade> grades) {
         return grades.stream()
             .filter(grade -> grade.getGradePoints() != null && grade.getGradePoints() >= 3.5)
-            .map(grade -> grade.getCourse() != null ? grade.getCourse().getCourseName() : "General Studies")
+            .map(grade -> grade.getCourse() != null ? grade.getCourse().getName() : "General Studies")
             .distinct()
             .collect(Collectors.toList());
     }
@@ -140,7 +140,7 @@ public class StudyScheduleOptimizationService {
     private List<String> identifyStudentWeaknesses(List<Grade> grades) {
         return grades.stream()
             .filter(grade -> grade.getGradePoints() != null && grade.getGradePoints() < 2.5)
-            .map(grade -> grade.getCourse() != null ? grade.getCourse().getCourseName() : "General Studies")
+            .map(grade -> grade.getCourse() != null ? grade.getCourse().getName() : "General Studies")
             .distinct()
             .collect(Collectors.toList());
     }
@@ -252,7 +252,7 @@ public class StudyScheduleOptimizationService {
         
         return StudyBlock.builder()
                 .courseId(enrollment.getCourse().getId())
-                .courseName(enrollment.getCourse().getCourseName())
+                .courseName(enrollment.getCourse().getName())
                 .dayOfWeek(currentDay)
                 .startTime(calculateOptimalStartTime(currentTime, profile))
                 .endTime(calculateOptimalStartTime(currentTime, profile).plusMinutes(adjustedDuration))
@@ -291,9 +291,9 @@ public class StudyScheduleOptimizationService {
     
     private double calculateCourseDifficulty(Course course) {
         // Simple heuristic based on course level and type
-        if (course.getCourseName() == null) return 2.0; // Default difficulty
+        if (course.getName() == null) return 2.0; // Default difficulty
         
-        String courseName = course.getCourseName().toLowerCase();
+        String courseName = course.getName().toLowerCase();
         if (courseName.contains("advanced") || courseName.contains("honors")) return 4.0;
         if (courseName.contains("intro") || courseName.contains("basic")) return 1.0;
         if (courseName.contains("math") || courseName.contains("science")) return 3.5;

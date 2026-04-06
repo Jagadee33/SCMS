@@ -324,7 +324,7 @@ public class AdvancedAnalyticsService {
                 
                 return Map.of(
                     "courseId", course.getId(),
-                    "courseName", course.getCourseName(),
+                    "courseName", course.getName(),
                     "enrollmentCount", enrollmentCount,
                     "averageGrade", avgGrade,
                     "completionRate", calculateCourseCompletionRate(course),
@@ -383,7 +383,7 @@ public class AdvancedAnalyticsService {
         distribution.put("advanced", 0L);
         
         for (Course course : courses) {
-            String courseName = course.getCourseName();
+            String courseName = course.getName();
             if (courseName != null) continue;
             
             String lowerName = courseName.toLowerCase();

@@ -55,6 +55,12 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query("SELECT p FROM Payment p WHERE p.gatewayTransactionId = :gatewayTransactionId")
     Optional<Payment> findByGatewayTransactionId(@Param("gatewayTransactionId") String gatewayTransactionId);
 
-    @Query("SELECT p FROM Payment p WHERE p.gatewayName = :gatewayName")
+    @Query("SELECT SUM(p.amount) FROM Payment p WHERE p.gatewayName = :gatewayName")
     List<Payment> findByGatewayName(@Param("gatewayName") String gatewayName);
+    
+    @Query("SELECT SUM(p.amount) FROM Payment p")
+    Double sumAllPayments();
+    
+    @Query("SELECT p FROM Payment p WHERE p.recipientId = :recipientId")
+    List<Payment> findByRecipientId(@Param("recipientId") Long recipientId);
 }

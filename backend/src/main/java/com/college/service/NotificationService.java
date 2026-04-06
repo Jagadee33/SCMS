@@ -227,12 +227,12 @@ public class NotificationService {
             
             return Map.of(
                 "message", String.format("Grade Posted: %s (%.2f) - Performance: %s", 
-                    recentGrades.get(0).getCourse() != null ? recentGrades.get(0).getCourse().getCourseName() : "Course",
+                    recentGrades.get(0).getCourse() != null ? recentGrades.get(0).getCourse().getName() : "Course",
                     averageGrade, performance),
                 "channels", channels,
                 "recentGrades", recentGrades.stream()
                     .map(g -> Map.of(
-                        "course", g.getCourse() != null ? g.getCourse().getCourseName() : "Course",
+                        "course", g.getCourse() != null ? g.getCourse().getName() : "Course",
                         "grade", g.getGradePoints(),
                         "gradeLetter", g.getGradeLetter()
                     ))
@@ -307,7 +307,7 @@ public class NotificationService {
                 "channels", channels,
                 "upcomingExams", upcomingExams.stream()
                     .map(exam -> Map.of(
-                        "course", exam.getCourse() != null ? exam.getCourse().getCourseName() : "Exam",
+                        "course", exam.getCourse() != null ? exam.getCourse().getName() : "Exam",
                         "examDate", exam.getExamDate(),
                         "examType", exam.getExamType(),
                         "location", exam.getLocation(),
@@ -336,7 +336,7 @@ public class NotificationService {
                 "enrolledCourses", enrollments.stream()
                     .map(e -> Map.of(
                         "courseId", e.getCourse().getId(),
-                        "courseName", e.getCourse().getCourseName(),
+                        "courseName", e.getCourse().getName(),
                         "enrollmentDate", e.getEnrollmentDate()
                     ))
                     .collect(Collectors.toList())

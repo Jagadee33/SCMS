@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.college.model.Student;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     
@@ -13,4 +14,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     
     @Query("SELECT COUNT(s) FROM Student s WHERE s.enrollmentDate >= :date")
     long countRecentEnrollments(@Param("date") LocalDate date);
+    
+    @Query("SELECT COUNT(s) FROM Student s WHERE s.role = :role")
+    long countByRole(@Param("role") String role);
+    
+    @Query("SELECT s FROM Student s WHERE s.role = :role")
+    List<Student> findByRole(@Param("role") String role);
 }

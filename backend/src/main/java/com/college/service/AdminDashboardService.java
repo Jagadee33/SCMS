@@ -48,7 +48,7 @@ public class AdminDashboardService {
     }
     
     // System overview metrics
-    private Map<String, Object> generateSystemOverview() {
+    public Map<String, Object> generateSystemOverview() {
         long totalStudents = studentRepository.count();
         long totalCourses = courseRepository.count();
         long totalFaculty = studentRepository.countByRole("FACULTY");
@@ -84,7 +84,7 @@ public class AdminDashboardService {
     }
     
     // User management metrics
-    private Map<String, Object> generateUserManagementMetrics() {
+    public Map<String, Object> generateUserManagementMetrics() {
         Map<String, Object> userStats = new HashMap<>();
         
         // User distribution by role
@@ -165,7 +165,7 @@ public class AdminDashboardService {
     }
     
     // Academic metrics
-    private Map<String, Object> generateAcademicMetrics() {
+    public Map<String, Object> generateAcademicMetrics() {
         // Course performance metrics
         Map<String, Object> courseMetrics = Map.of(
             "averageClassSize", calculateAverageClassSize(),
@@ -263,7 +263,7 @@ public class AdminDashboardService {
             Course course = sortedCourses.get(i);
             popularCourses.add(Map.of(
                 "courseId", course.getId(),
-                "courseName", course.getCourseName(),
+                "courseName", course.getName(),
                 "enrollmentCount", 5 + (int) (Math.random() * 20),
                 "averageGrade", 3.2 + (Math.random() * 0.8),
                 "completionRate", 85.0 + (Math.random() * 15)
@@ -335,7 +335,7 @@ public class AdminDashboardService {
     }
     
     // Financial overview
-    private Map<String, Object> generateFinancialOverview() {
+    public Map<String, Object> generateFinancialOverview() {
         List<Payment> allPayments = paymentRepository.findAll();
         
         // Revenue metrics
@@ -375,9 +375,8 @@ public class AdminDashboardService {
         return 8.7; // 8.7% growth rate
     }
     
-    private double calculateAverageTransactionAmount() {
-        List<Payment> allPayments = paymentRepository.findAll();
-        return allPayments.stream()
+    private double calculateAverageTransactionAmount(List<Payment> payments) {
+        return payments.stream()
                 .mapToDouble(p -> p.getAmount() != null ? p.getAmount() : 0.0)
                 .average()
                 .orElse(0.0);
@@ -411,7 +410,7 @@ public class AdminDashboardService {
     }
     
     // System health metrics
-    private Map<String, Object> generateSystemHealthMetrics() {
+    public Map<String, Object> generateSystemHealthMetrics() {
         return Map.of(
             "overallStatus", "healthy",
             "uptime", "99.8%",
@@ -431,7 +430,7 @@ public class AdminDashboardService {
     }
     
     // Operational metrics
-    private Map<String, Object> generateOperationalMetrics() {
+    public Map<String, Object> generateOperationalMetrics() {
         return Map.of(
             "systemPerformance", Map.of(
                 "requestRate", "1247/hour",
@@ -458,7 +457,7 @@ public class AdminDashboardService {
     }
     
     // Security metrics
-    private Map<String, Object> generateSecurityMetrics() {
+    public Map<String, Object> generateSecurityMetrics() {
         return Map.of(
             "securityStatus", "secure",
             "threatLevel", "low",
@@ -509,7 +508,7 @@ public class AdminDashboardService {
     }
     
     // Recent activities
-    private Map<String, Object> generateRecentActivities() {
+    public Map<String, Object> generateRecentActivities() {
         return Map.of(
             "systemActivities", getRecentSystemActivities(),
             "userActivities", getRecentUserActivities(),
@@ -653,7 +652,7 @@ public class AdminDashboardService {
     }
     
     // System alerts
-    private Map<String, Object> generateSystemAlerts() {
+    public Map<String, Object> generateSystemAlerts() {
         return Map.of(
             "criticalAlerts", getCriticalAlerts(),
             "warningAlerts", getWarningAlerts(),
