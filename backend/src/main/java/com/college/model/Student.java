@@ -53,6 +53,9 @@ public class Student {
     private Double gpa;
 
     @Column(nullable = true)
+    private String status;
+
+    @Column(nullable = true)
     private String semester;
 
     @Column(nullable = true)
@@ -134,8 +137,8 @@ public class Student {
     public String getSpecialization() { return specialization; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
 
-    public LocalDateTime getEnrollmentDate() { return enrollmentDate; }
-    public void setEnrollmentDate(LocalDate enrollmentDate) { this.enrollmentDate = enrollmentDate != null ? enrollmentDate.atStartOfDay() : null; }
+    public LocalDate getEnrollmentDate() { return enrollmentDate; }
+    public void setEnrollmentDate(LocalDate enrollmentDate) { this.enrollmentDate = enrollmentDate; }
 
     public Integer getGraduationYear() { return graduationYear; }
     public void setGraduationYear(Integer graduationYear) { this.graduationYear = graduationYear; }
