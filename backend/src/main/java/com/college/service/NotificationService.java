@@ -2,20 +2,20 @@ package com.college.service;
 
 import com.college.model.*;
 import com.college.repository.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 @Transactional
 public class NotificationService {
+    
+    private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
     
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
@@ -23,6 +23,17 @@ public class NotificationService {
     private final AttendanceRepository attendanceRepository;
     private final PaymentRepository paymentRepository;
     private final ExaminationRepository examinationRepository;
+    
+    public NotificationService(StudentRepository studentRepository, CourseRepository courseRepository, 
+                           GradeRepository gradeRepository, AttendanceRepository attendanceRepository,
+                           PaymentRepository paymentRepository, ExaminationRepository examinationRepository) {
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
+        this.gradeRepository = gradeRepository;
+        this.attendanceRepository = attendanceRepository;
+        this.paymentRepository = paymentRepository;
+        this.examinationRepository = examinationRepository;
+    }
     
     // Send real-time notifications
     public Map<String, Object> sendNotification(Map<String, Object> notificationRequest) {
