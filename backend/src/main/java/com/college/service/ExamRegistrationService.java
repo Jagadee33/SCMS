@@ -65,12 +65,14 @@ public class ExamRegistrationService {
             throw new RuntimeException("Examination is full");
         }
 
-        ExamRegistration registration = ExamRegistration.builder()
-            .student(student)
-            .examination(examination)
-            .status(examination.getRequiresApproval() ? "REGISTERED" : "APPROVED")
-            .specialRequirements(specialRequirements)
-            .build();
+        ExamRegistration registration = new ExamRegistration(
+                student, 
+                examination, 
+                LocalDateTime.now(),
+                false, 
+                specialRequirements,
+                examination.getRequiresApproval() ? "REGISTERED" : "APPROVED"
+        );
 
         // Update current participants count
         examination.setCurrentParticipants(examination.getCurrentParticipants() + 1);
