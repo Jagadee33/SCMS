@@ -98,16 +98,15 @@ public class NotificationService {
     }
     
     private Notification createNotification(String type, Long recipientId, String message, String priority) {
-        Notification notification = Notification.builder()
-                .type(type)
-                .recipientId(recipientId)
-                .recipientType(determineRecipientType(type))
-                .message(message)
-                .priority(priority)
-                .status("PENDING")
-                .createdAt(LocalDateTime.now())
-                .expiresAt(calculateExpirationTime(priority))
-                .build();
+        Notification notification = new Notification();
+        notification.setType(type);
+        notification.setRecipientId(recipientId);
+        notification.setRecipientType(determineRecipientType(type));
+        notification.setMessage(message);
+        notification.setPriority(priority);
+        notification.setStatus("PENDING");
+        notification.setCreatedAt(LocalDateTime.now());
+        notification.setExpiresAt(calculateExpirationTime(priority));
         
         // In a real implementation, this would be saved to database
         log.info("Created notification: {}", notification);
