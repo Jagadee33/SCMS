@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Arrays;
 
@@ -28,22 +29,22 @@ public class SecurityConfig {
         http.csrf().disable()
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/courses/**").permitAll()
-                .requestMatchers("/api/performance-prediction/**").permitAll()
-                .requestMatchers("/api/smart-attendance/**").permitAll()
-                .requestMatchers("/api/study-optimization/**").permitAll()
-                .requestMatchers("/api/analytics/**").permitAll()
-                .requestMatchers("/api/notifications/**").permitAll()
-                .requestMatchers("/api/admin/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/api/users/**").authenticated()
-                .requestMatchers("/api/students/**").authenticated()
-                .requestMatchers("/api/v1/students/**").authenticated()
-                .requestMatchers("/api/fees/**").authenticated()
-                .requestMatchers("/api/payments/**").authenticated()
-                .requestMatchers("/api/payment-transactions/**").authenticated()
-                .requestMatchers("/api/enrollments/**").authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/courses/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/performance-prediction/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/smart-attendance/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/study-optimization/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/analytics/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/notifications/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/users/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/students/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/students/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/fees/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/payments/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/payment-transactions/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/enrollments/**")).authenticated()
                 .anyRequest().permitAll()
             );
         
