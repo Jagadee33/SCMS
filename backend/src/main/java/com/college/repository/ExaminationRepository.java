@@ -4,10 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.college.model.Examination;
 import com.college.model.Course;
 import com.college.model.Faculty;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
     
     List<Examination> findByCourseId(Long courseId);

@@ -2,10 +2,12 @@ package com.college.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.college.model.Fee;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface FeeRepository extends JpaRepository<Fee, Long> {
     
     List<Fee> findByStudentId(Long studentId);
