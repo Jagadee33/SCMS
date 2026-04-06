@@ -2,16 +2,10 @@ package com.college.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "examinations")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Examination {
     
@@ -91,6 +85,97 @@ public class Examination {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    // Constructors
+    public Examination() {}
+
+    public Examination(String title, String description, Course course, Faculty faculty, 
+                         LocalDateTime examDate, String duration, Integer totalMarks, 
+                         Integer passingMarks, String status, String examType) {
+        this.title = title;
+        this.description = description;
+        this.course = course;
+        this.faculty = faculty;
+        this.examDate = examDate;
+        this.duration = duration;
+        this.totalMarks = totalMarks;
+        this.passingMarks = passingMarks;
+        this.status = status;
+        this.examType = examType;
+    }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public Course getCourse() { return course; }
+    public void setCourse(Course course) { this.course = course; }
+
+    public Faculty getFaculty() { return faculty; }
+    public void setFaculty(Faculty faculty) { this.faculty = faculty; }
+
+    public LocalDateTime getExamDate() { return examDate; }
+    public void setExamDate(LocalDateTime examDate) { this.examDate = examDate; }
+
+    public LocalDateTime getStartTime() { return startTime; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
+
+    public LocalDateTime getEndTime() { return endTime; }
+    public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
+
+    public String getDuration() { return duration; }
+    public void setDuration(String duration) { this.duration = duration; }
+
+    public Integer getTotalMarks() { return totalMarks; }
+    public void setTotalMarks(Integer totalMarks) { this.totalMarks = totalMarks; }
+
+    public Integer getPassingMarks() { return passingMarks; }
+    public void setPassingMarks(Integer passingMarks) { this.passingMarks = passingMarks; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getExamType() { return examType; }
+    public void setExamType(String examType) { this.examType = examType; }
+
+    public String getExamMode() { return examMode; }
+    public void setExamMode(String examMode) { this.examMode = examMode; }
+
+    public String getVenue() { return venue; }
+    public void setVenue(String venue) { this.venue = venue; }
+
+    public String getInstructions() { return instructions; }
+    public void setInstructions(String instructions) { this.instructions = instructions; }
+
+    public LocalDateTime getRegistrationDeadline() { return registrationDeadline; }
+    public void setRegistrationDeadline(LocalDateTime registrationDeadline) { this.registrationDeadline = registrationDeadline; }
+
+    public LocalDateTime getResultDate() { return resultDate; }
+    public void setResultDate(LocalDateTime resultDate) { this.resultDate = resultDate; }
+
+    public Integer getMaxParticipants() { return maxParticipants; }
+    public void setMaxParticipants(Integer maxParticipants) { this.maxParticipants = maxParticipants; }
+
+    public Integer getCurrentParticipants() { return currentParticipants; }
+    public void setCurrentParticipants(Integer currentParticipants) { this.currentParticipants = currentParticipants; }
+
+    public Boolean getIsActive() { return isActive; }
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+
+    public Boolean getRequiresApproval() { return requiresApproval; }
+    public void setRequiresApproval(Boolean requiresApproval) { this.requiresApproval = requiresApproval; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
     @PrePersist
     protected void onCreate() {
