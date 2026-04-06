@@ -472,10 +472,6 @@ public class StudyScheduleOptimizationService {
     }
     
     // Helper classes for data structures
-    @lombok.Data
-    @lombok.Builder
-    @lombok.AllArgsConstructor
-    @lombok.NoArgsConstructor
     public static class StudentPerformanceProfile {
         private Long studentId;
         private double gpa;
@@ -486,35 +482,191 @@ public class StudyScheduleOptimizationService {
         private List<String> weaknesses;
         private LocalTime optimalStudyTime;
         private double studyEfficiency;
+        
+        // Constructors
+        public StudentPerformanceProfile() {}
+        
+        public StudentPerformanceProfile(Long studentId, double gpa, double attendanceRate, LearningPattern learningPattern, StudyPreferences preferences, List<String> strengths, List<String> weaknesses, LocalTime optimalStudyTime, double studyEfficiency) {
+            this.studentId = studentId;
+            this.gpa = gpa;
+            this.attendanceRate = attendanceRate;
+            this.learningPattern = learningPattern;
+            this.preferences = preferences;
+            this.strengths = strengths;
+            this.weaknesses = weaknesses;
+            this.optimalStudyTime = optimalStudyTime;
+            this.studyEfficiency = studyEfficiency;
+        }
+        
+        // Builder pattern
+        public static StudentPerformanceProfileBuilder builder() {
+            return new StudentPerformanceProfileBuilder();
+        }
+        
+        // Getters and setters
+        public Long getStudentId() { return studentId; }
+        public void setStudentId(Long studentId) { this.studentId = studentId; }
+        
+        public double getGpa() { return gpa; }
+        public void setGpa(double gpa) { this.gpa = gpa; }
+        
+        public double getAttendanceRate() { return attendanceRate; }
+        public void setAttendanceRate(double attendanceRate) { this.attendanceRate = attendanceRate; }
+        
+        public LearningPattern getLearningPattern() { return learningPattern; }
+        public void setLearningPattern(LearningPattern learningPattern) { this.learningPattern = learningPattern; }
+        
+        public StudyPreferences getPreferences() { return preferences; }
+        public void setPreferences(StudyPreferences preferences) { this.preferences = preferences; }
+        
+        public List<String> getStrengths() { return strengths; }
+        public void setStrengths(List<String> strengths) { this.strengths = strengths; }
+        
+        public List<String> getWeaknesses() { return weaknesses; }
+        public void setWeaknesses(List<String> weaknesses) { this.weaknesses = weaknesses; }
+        
+        public LocalTime getOptimalStudyTime() { return optimalStudyTime; }
+        public void setOptimalStudyTime(LocalTime optimalStudyTime) { this.optimalStudyTime = optimalStudyTime; }
+        
+        public double getStudyEfficiency() { return studyEfficiency; }
+        public void setStudyEfficiency(double studyEfficiency) { this.studyEfficiency = studyEfficiency; }
+        
+        public static class StudentPerformanceProfileBuilder {
+            private Long studentId;
+            private double gpa;
+            private double attendanceRate;
+            private LearningPattern learningPattern;
+            private StudyPreferences preferences;
+            private List<String> strengths;
+            private List<String> weaknesses;
+            private LocalTime optimalStudyTime;
+            private double studyEfficiency;
+            
+            public StudentPerformanceProfileBuilder studentId(Long studentId) { this.studentId = studentId; return this; }
+            public StudentPerformanceProfileBuilder gpa(double gpa) { this.gpa = gpa; return this; }
+            public StudentPerformanceProfileBuilder attendanceRate(double attendanceRate) { this.attendanceRate = attendanceRate; return this; }
+            public StudentPerformanceProfileBuilder learningPattern(LearningPattern learningPattern) { this.learningPattern = learningPattern; return this; }
+            public StudentPerformanceProfileBuilder preferences(StudyPreferences preferences) { this.preferences = preferences; return this; }
+            public StudentPerformanceProfileBuilder strengths(List<String> strengths) { this.strengths = strengths; return this; }
+            public StudentPerformanceProfileBuilder weaknesses(List<String> weaknesses) { this.weaknesses = weaknesses; return this; }
+            public StudentPerformanceProfileBuilder optimalStudyTime(LocalTime optimalStudyTime) { this.optimalStudyTime = optimalStudyTime; return this; }
+            public StudentPerformanceProfileBuilder studyEfficiency(double studyEfficiency) { this.studyEfficiency = studyEfficiency; return this; }
+            
+            public StudentPerformanceProfile build() {
+                return new StudentPerformanceProfile(studentId, gpa, attendanceRate, learningPattern, preferences, strengths, weaknesses, optimalStudyTime, studyEfficiency);
+            }
+        }
     }
     
-    @lombok.Data
-    @lombok.Builder
-    @lombok.AllArgsConstructor
-    @lombok.NoArgsConstructor
     public static class LearningPattern {
         private String bestSubject;
         private String worstSubject;
         private DayOfWeek bestDayOfWeek;
         private DayOfWeek worstDayOfWeek;
+        
+        // Constructors
+        public LearningPattern() {}
+        
+        public LearningPattern(String bestSubject, String worstSubject, DayOfWeek bestDayOfWeek, DayOfWeek worstDayOfWeek) {
+            this.bestSubject = bestSubject;
+            this.worstSubject = worstSubject;
+            this.bestDayOfWeek = bestDayOfWeek;
+            this.worstDayOfWeek = worstDayOfWeek;
+        }
+        
+        // Builder pattern
+        public static LearningPatternBuilder builder() {
+            return new LearningPatternBuilder();
+        }
+        
+        // Getters and setters
+        public String getBestSubject() { return bestSubject; }
+        public void setBestSubject(String bestSubject) { this.bestSubject = bestSubject; }
+        
+        public String getWorstSubject() { return worstSubject; }
+        public void setWorstSubject(String worstSubject) { this.worstSubject = worstSubject; }
+        
+        public DayOfWeek getBestDayOfWeek() { return bestDayOfWeek; }
+        public void setBestDayOfWeek(DayOfWeek bestDayOfWeek) { this.bestDayOfWeek = bestDayOfWeek; }
+        
+        public DayOfWeek getWorstDayOfWeek() { return worstDayOfWeek; }
+        public void setWorstDayOfWeek(DayOfWeek worstDayOfWeek) { this.worstDayOfWeek = worstDayOfWeek; }
+        
+        public static class LearningPatternBuilder {
+            private String bestSubject;
+            private String worstSubject;
+            private DayOfWeek bestDayOfWeek;
+            private DayOfWeek worstDayOfWeek;
+            
+            public LearningPatternBuilder bestSubject(String bestSubject) { this.bestSubject = bestSubject; return this; }
+            public LearningPatternBuilder worstSubject(String worstSubject) { this.worstSubject = worstSubject; return this; }
+            public LearningPatternBuilder bestDayOfWeek(DayOfWeek bestDayOfWeek) { this.bestDayOfWeek = bestDayOfWeek; return this; }
+            public LearningPatternBuilder worstDayOfWeek(DayOfWeek worstDayOfWeek) { this.worstDayOfWeek = worstDayOfWeek; return this; }
+            
+            public LearningPattern build() {
+                return new LearningPattern(bestSubject, worstSubject, bestDayOfWeek, worstDayOfWeek);
+            }
+        }
     }
     
-    @lombok.Data
-    @lombok.Builder
-    @lombok.AllArgsConstructor
-    @lombok.NoArgsConstructor
     public static class StudyPreferences {
         private int preferredStudyDuration;
         private int preferredBreakInterval;
         private String preferredStudyMethod;
         private String preferredEnvironment;
         private double difficultyAdjustment;
+        
+        // Constructors
+        public StudyPreferences() {}
+        
+        public StudyPreferences(int preferredStudyDuration, int preferredBreakInterval, String preferredStudyMethod, String preferredEnvironment, double difficultyAdjustment) {
+            this.preferredStudyDuration = preferredStudyDuration;
+            this.preferredBreakInterval = preferredBreakInterval;
+            this.preferredStudyMethod = preferredStudyMethod;
+            this.preferredEnvironment = preferredEnvironment;
+            this.difficultyAdjustment = difficultyAdjustment;
+        }
+        
+        // Builder pattern
+        public static StudyPreferencesBuilder builder() {
+            return new StudyPreferencesBuilder();
+        }
+        
+        // Getters and setters
+        public int getPreferredStudyDuration() { return preferredStudyDuration; }
+        public void setPreferredStudyDuration(int preferredStudyDuration) { this.preferredStudyDuration = preferredStudyDuration; }
+        
+        public int getPreferredBreakInterval() { return preferredBreakInterval; }
+        public void setPreferredBreakInterval(int preferredBreakInterval) { this.preferredBreakInterval = preferredBreakInterval; }
+        
+        public String getPreferredStudyMethod() { return preferredStudyMethod; }
+        public void setPreferredStudyMethod(String preferredStudyMethod) { this.preferredStudyMethod = preferredStudyMethod; }
+        
+        public String getPreferredEnvironment() { return preferredEnvironment; }
+        public void setPreferredEnvironment(String preferredEnvironment) { this.preferredEnvironment = preferredEnvironment; }
+        
+        public double getDifficultyAdjustment() { return difficultyAdjustment; }
+        public void setDifficultyAdjustment(double difficultyAdjustment) { this.difficultyAdjustment = difficultyAdjustment; }
+        
+        public static class StudyPreferencesBuilder {
+            private int preferredStudyDuration;
+            private int preferredBreakInterval;
+            private String preferredStudyMethod;
+            private String preferredEnvironment;
+            private double difficultyAdjustment;
+            
+            public StudyPreferencesBuilder preferredStudyDuration(int preferredStudyDuration) { this.preferredStudyDuration = preferredStudyDuration; return this; }
+            public StudyPreferencesBuilder preferredBreakInterval(int preferredBreakInterval) { this.preferredBreakInterval = preferredBreakInterval; return this; }
+            public StudyPreferencesBuilder preferredStudyMethod(String preferredStudyMethod) { this.preferredStudyMethod = preferredStudyMethod; return this; }
+            public StudyPreferencesBuilder preferredEnvironment(String preferredEnvironment) { this.preferredEnvironment = preferredEnvironment; return this; }
+            public StudyPreferencesBuilder difficultyAdjustment(double difficultyAdjustment) { this.difficultyAdjustment = difficultyAdjustment; return this; }
+            
+            public StudyPreferences build() {
+                return new StudyPreferences(preferredStudyDuration, preferredBreakInterval, preferredStudyMethod, preferredEnvironment, difficultyAdjustment);
+            }
+        }
     }
     
-    @lombok.Data
-    @lombok.Builder
-    @lombok.AllArgsConstructor
-    @lombok.NoArgsConstructor
     public static class StudyBlock {
         private Long courseId;
         private String courseName;
@@ -527,5 +679,91 @@ public class StudyScheduleOptimizationService {
         private String studyMethod;
         private String environment;
         private boolean aiOptimization;
+        
+        // Constructors
+        public StudyBlock() {}
+        
+        public StudyBlock(Long courseId, String courseName, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime, int studyDuration, int breakDuration, double difficulty, String studyMethod, String environment, boolean aiOptimization) {
+            this.courseId = courseId;
+            this.courseName = courseName;
+            this.dayOfWeek = dayOfWeek;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.studyDuration = studyDuration;
+            this.breakDuration = breakDuration;
+            this.difficulty = difficulty;
+            this.studyMethod = studyMethod;
+            this.environment = environment;
+            this.aiOptimization = aiOptimization;
+        }
+        
+        // Builder pattern
+        public static StudyBlockBuilder builder() {
+            return new StudyBlockBuilder();
+        }
+        
+        // Getters and setters
+        public Long getCourseId() { return courseId; }
+        public void setCourseId(Long courseId) { this.courseId = courseId; }
+        
+        public String getCourseName() { return courseName; }
+        public void setCourseName(String courseName) { this.courseName = courseName; }
+        
+        public DayOfWeek getDayOfWeek() { return dayOfWeek; }
+        public void setDayOfWeek(DayOfWeek dayOfWeek) { this.dayOfWeek = dayOfWeek; }
+        
+        public LocalTime getStartTime() { return startTime; }
+        public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+        
+        public LocalTime getEndTime() { return endTime; }
+        public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+        
+        public int getStudyDuration() { return studyDuration; }
+        public void setStudyDuration(int studyDuration) { this.studyDuration = studyDuration; }
+        
+        public int getBreakDuration() { return breakDuration; }
+        public void setBreakDuration(int breakDuration) { this.breakDuration = breakDuration; }
+        
+        public double getDifficulty() { return difficulty; }
+        public void setDifficulty(double difficulty) { this.difficulty = difficulty; }
+        
+        public String getStudyMethod() { return studyMethod; }
+        public void setStudyMethod(String studyMethod) { this.studyMethod = studyMethod; }
+        
+        public String getEnvironment() { return environment; }
+        public void setEnvironment(String environment) { this.environment = environment; }
+        
+        public boolean isAiOptimization() { return aiOptimization; }
+        public void setAiOptimization(boolean aiOptimization) { this.aiOptimization = aiOptimization; }
+        
+        public static class StudyBlockBuilder {
+            private Long courseId;
+            private String courseName;
+            private DayOfWeek dayOfWeek;
+            private LocalTime startTime;
+            private LocalTime endTime;
+            private int studyDuration;
+            private int breakDuration;
+            private double difficulty;
+            private String studyMethod;
+            private String environment;
+            private boolean aiOptimization;
+            
+            public StudyBlockBuilder courseId(Long courseId) { this.courseId = courseId; return this; }
+            public StudyBlockBuilder courseName(String courseName) { this.courseName = courseName; return this; }
+            public StudyBlockBuilder dayOfWeek(DayOfWeek dayOfWeek) { this.dayOfWeek = dayOfWeek; return this; }
+            public StudyBlockBuilder startTime(LocalTime startTime) { this.startTime = startTime; return this; }
+            public StudyBlockBuilder endTime(LocalTime endTime) { this.endTime = endTime; return this; }
+            public StudyBlockBuilder studyDuration(int studyDuration) { this.studyDuration = studyDuration; return this; }
+            public StudyBlockBuilder breakDuration(int breakDuration) { this.breakDuration = breakDuration; return this; }
+            public StudyBlockBuilder difficulty(double difficulty) { this.difficulty = difficulty; return this; }
+            public StudyBlockBuilder studyMethod(String studyMethod) { this.studyMethod = studyMethod; return this; }
+            public StudyBlockBuilder environment(String environment) { this.environment = environment; return this; }
+            public StudyBlockBuilder aiOptimization(boolean aiOptimization) { this.aiOptimization = aiOptimization; return this; }
+            
+            public StudyBlock build() {
+                return new StudyBlock(courseId, courseName, dayOfWeek, startTime, endTime, studyDuration, breakDuration, difficulty, studyMethod, environment, aiOptimization);
+            }
+        }
     }
 }
