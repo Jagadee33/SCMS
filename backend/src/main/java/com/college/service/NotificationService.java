@@ -562,3 +562,4 @@ public class NotificationService {
                 return List.of("System notification", "Campus WiFi maintenance scheduled", "New course registration open").get(index % 1);
         }
     }
+}

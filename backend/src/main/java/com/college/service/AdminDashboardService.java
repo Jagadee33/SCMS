@@ -632,21 +632,21 @@ public class AdminDashboardService {
             "action", "User account created",
             "timestamp", now.minusMinutes(45),
             "user", "admin",
-            "details": "New faculty account created for Prof. John Smith"
+            "details", "New faculty account created for Prof. John Smith"
         ));
         
         actions.add(Map.of(
             "action", "System configuration updated",
             "timestamp", now.minusHours(3),
             "user", "admin",
-            "details": "Email server configuration updated with new SMTP settings"
+            "details", "Email server configuration updated with new SMTP settings"
         ));
         
         actions.add(Map.of(
             "action", "Data export completed",
             "timestamp", now.minusHours(8),
             "user", "admin",
-            "details": "Student data export for external reporting completed"
+            "details", "Student data export for external reporting completed"
         ));
         
         return actions;
