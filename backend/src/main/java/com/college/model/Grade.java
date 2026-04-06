@@ -2,18 +2,10 @@ package com.college.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "grades")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Grade {
     
@@ -86,6 +78,88 @@ public class Grade {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    // Constructors
+    public Grade() {}
+
+    public Grade(Student student, Course course, Examination examination, Faculty faculty, 
+               String gradeType, String gradeTitle, Double maxMarks, Double obtainedMarks) {
+        this.student = student;
+        this.course = course;
+        this.examination = examination;
+        this.faculty = faculty;
+        this.gradeType = gradeType;
+        this.gradeTitle = gradeTitle;
+        this.maxMarks = maxMarks;
+        this.obtainedMarks = obtainedMarks;
+        calculatePercentage();
+        calculateGradeLetterAndPoints();
+    }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Student getStudent() { return student; }
+    public void setStudent(Student student) { this.student = student; }
+
+    public Course getCourse() { return course; }
+    public void setCourse(Course course) { this.course = course; }
+
+    public Examination getExamination() { return examination; }
+    public void setExamination(Examination examination) { this.examination = examination; }
+
+    public Faculty getFaculty() { return faculty; }
+    public void setFaculty(Faculty faculty) { this.faculty = faculty; }
+
+    public String getGradeType() { return gradeType; }
+    public void setGradeType(String gradeType) { this.gradeType = gradeType; }
+
+    public String getGradeTitle() { return gradeTitle; }
+    public void setGradeTitle(String gradeTitle) { this.gradeTitle = gradeTitle; }
+
+    public Double getMaxMarks() { return maxMarks; }
+    public void setMaxMarks(Double maxMarks) { this.maxMarks = maxMarks; }
+
+    public Double getObtainedMarks() { return obtainedMarks; }
+    public void setObtainedMarks(Double obtainedMarks) { 
+        this.obtainedMarks = obtainedMarks;
+        calculatePercentage();
+        calculateGradeLetterAndPoints();
+    }
+
+    public Double getPercentage() { return percentage; }
+    public void setPercentage(Double percentage) { this.percentage = percentage; }
+
+    public String getGradeLetter() { return gradeLetter; }
+    public void setGradeLetter(String gradeLetter) { this.gradeLetter = gradeLetter; }
+
+    public Double getGradePoints() { return gradePoints; }
+    public void setGradePoints(Double gradePoints) { this.gradePoints = gradePoints; }
+
+    public Double getWeightage() { return weightage; }
+    public void setWeightage(Double weightage) { this.weightage = weightage; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getGradedDate() { return gradedDate; }
+    public void setGradedDate(LocalDateTime gradedDate) { this.gradedDate = gradedDate; }
+
+    public LocalDateTime getSubmissionDate() { return submissionDate; }
+    public void setSubmissionDate(LocalDateTime submissionDate) { this.submissionDate = submissionDate; }
+
+    public String getFeedback() { return feedback; }
+    public void setFeedback(String feedback) { this.feedback = feedback; }
+
+    public String getRemarks() { return remarks; }
+    public void setRemarks(String remarks) { this.remarks = remarks; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -109,7 +183,6 @@ public class Grade {
 
     private void calculateGradeLetterAndPoints() {
         if (percentage == null) return;
-
         if (percentage >= 95) {
             gradeLetter = "A+";
             gradePoints = 4.0;
