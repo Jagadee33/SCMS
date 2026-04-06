@@ -90,7 +90,7 @@ public class ExamRegistrationService {
         }
 
         registration.setStatus("APPROVED");
-        registration.setApprovalDate(LocalDateTime.now());
+        registration.setCompletionDate(LocalDateTime.now());
         registration.setApprovalNotes(approvalNotes);
 
         return examRegistrationRepository.save(registration);
@@ -105,7 +105,7 @@ public class ExamRegistrationService {
         }
 
         registration.setStatus("REJECTED");
-        registration.setApprovalDate(LocalDateTime.now());
+        registration.setCompletionDate(LocalDateTime.now());
         registration.setApprovalNotes(approvalNotes);
 
         // Update current participants count
@@ -257,7 +257,7 @@ public class ExamRegistrationService {
         registrations.forEach(reg -> {
             if ("REGISTERED".equals(reg.getStatus())) {
                 reg.setStatus("APPROVED");
-                reg.setApprovalDate(LocalDateTime.now());
+                reg.setCompletionDate(LocalDateTime.now());
                 reg.setApprovalNotes(approvalNotes);
             }
         });
