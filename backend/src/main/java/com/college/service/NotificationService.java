@@ -18,17 +18,15 @@ public class NotificationService {
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
     
     private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
     private final GradeRepository gradeRepository;
     private final AttendanceRepository attendanceRepository;
     private final PaymentRepository paymentRepository;
     private final ExaminationRepository examinationRepository;
     
-    public NotificationService(StudentRepository studentRepository, CourseRepository courseRepository, 
-                           GradeRepository gradeRepository, AttendanceRepository attendanceRepository,
+    public NotificationService(StudentRepository studentRepository, GradeRepository gradeRepository, 
+                           AttendanceRepository attendanceRepository,
                            PaymentRepository paymentRepository, ExaminationRepository examinationRepository) {
         this.studentRepository = studentRepository;
-        this.courseRepository = courseRepository;
         this.gradeRepository = gradeRepository;
         this.attendanceRepository = attendanceRepository;
         this.paymentRepository = paymentRepository;

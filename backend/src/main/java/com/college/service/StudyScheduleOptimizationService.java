@@ -20,11 +20,9 @@ import java.util.stream.Collectors;
 public class StudyScheduleOptimizationService {
     
     private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
     private final GradeRepository gradeRepository;
     private final AttendanceRepository attendanceRepository;
     private final EnrollmentRepository enrollmentRepository;
-    private final ExaminationRepository examinationRepository;
     
     // Study optimization based on student performance and patterns
     public Map<String, Object> generateOptimizedStudySchedule(Long studentId) {

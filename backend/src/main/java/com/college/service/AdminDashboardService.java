@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,6 @@ public class AdminDashboardService {
     private final AttendanceRepository attendanceRepository;
     private final PaymentRepository paymentRepository;
     private final EnrollmentRepository enrollmentRepository;
-    private final ExaminationRepository examinationRepository;
     
     // Generate comprehensive admin dashboard
     public Map<String, Object> generateAdminDashboard() {
@@ -85,8 +83,6 @@ public class AdminDashboardService {
     
     // User management metrics
     public Map<String, Object> generateUserManagementMetrics() {
-        Map<String, Object> userStats = new HashMap<>();
-        
         // User distribution by role
         Map<String, Long> roleDistribution = Map.of(
             "students", studentRepository.countByRole("STUDENT"),
