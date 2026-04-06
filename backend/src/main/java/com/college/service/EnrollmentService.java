@@ -62,15 +62,15 @@ public class EnrollmentService {
         // You can add capacity logic here if needed
 
         // Create enrollment
-        Enrollment enrollment = Enrollment.builder()
-                .student(student)
-                .course(course)
-                .status("ENROLLED")
-                .enrollmentDate(LocalDate.now())
-                .semester(semester)
-                .academicYear(academicYear)
-                .creditsEarned(0.0)
-                .build();
+        Enrollment enrollment = new Enrollment(student, course, "ENROLLED", null, null);
+        enrollment.setEnrollmentDate(LocalDate.now());
+        if (semester != null) {
+            enrollment.setSemester(semester);
+        }
+        if (academicYear != null) {
+            enrollment.setAcademicYear(academicYear);
+        }
+        enrollment.setCreditsEarned(0.0);
 
         return enrollmentRepository.save(enrollment);
     }
