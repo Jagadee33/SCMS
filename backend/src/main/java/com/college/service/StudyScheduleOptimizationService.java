@@ -393,8 +393,11 @@ public class StudyScheduleOptimizationService {
     }
     
     private Map<String, Object> calculateDifficultyDistribution(List<StudyBlock> schedule) {
-        Map<String, Integer> difficultyCounts = schedule.stream()
-            .collect(Collectors.groupingBy(StudyBlock::getDifficulty, Collectors.counting()));
+        Map<String, Integer> difficultyCounts = new HashMap<>();
+        for (StudyBlock block : schedule) {
+            String difficultyKey = String.valueOf(block.getDifficulty());
+            difficultyCounts.put(difficultyKey, difficultyCounts.getOrDefault(difficultyKey, 0) + 1);
+        }
         
         return Map.of(
             "easy", difficultyCounts.getOrDefault(1.0, 0),
@@ -458,7 +461,7 @@ public class StudyScheduleOptimizationService {
         }
         
         // Environment recommendations
-        if ("QUIET".equals(profile.getPreferences().getPreferredStudyEnvironment())) {
+        if ("QUIET".equals(profile.getPreferences().getPreferredEnvironment())) {
             recommendations.add("Use noise-canceling headphones and minimize distractions.");
             recommendations.add("Study in short, focused sessions with regular breaks.");
         } else {
