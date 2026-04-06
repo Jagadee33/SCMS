@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/analytics/**").permitAll()
                 .requestMatchers("/api/notifications/**").permitAll()
                 .requestMatchers("/api/admin/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/users/**").authenticated()
                 .requestMatchers("/api/students/**").authenticated()
                 .requestMatchers("/api/v1/students/**").authenticated()
