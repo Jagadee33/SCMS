@@ -22,15 +22,18 @@ public class NotificationService {
     private final AttendanceRepository attendanceRepository;
     private final PaymentRepository paymentRepository;
     private final ExaminationRepository examinationRepository;
+    private final EnrollmentRepository enrollmentRepository;
     
     public NotificationService(StudentRepository studentRepository, GradeRepository gradeRepository, 
                            AttendanceRepository attendanceRepository,
-                           PaymentRepository paymentRepository, ExaminationRepository examinationRepository) {
+                           PaymentRepository paymentRepository, ExaminationRepository examinationRepository,
+                           EnrollmentRepository enrollmentRepository) {
         this.studentRepository = studentRepository;
         this.gradeRepository = gradeRepository;
         this.attendanceRepository = attendanceRepository;
         this.paymentRepository = paymentRepository;
         this.examinationRepository = examinationRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
     
     // Send real-time notifications
@@ -323,7 +326,9 @@ public class NotificationService {
     private Map<String, Object> processCourseNotification(Notification notification, Long recipientId) {
         try {
             // Get course details
-            List<Enrollment> enrollments = enrollmentRepository.findByStudent(recipientId);
+            Student student = studentRepository.findById(recipientId).orElse(null);
+            if (student == null) return Map.of("error", "Student not found");
+            List<Enrollment> enrollments = enrollmentRepository.findByStudent(student);
             
             List<String> channels = new ArrayList<>();
             channels.add("email");

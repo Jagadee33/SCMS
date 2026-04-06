@@ -258,7 +258,7 @@ public class StudyScheduleOptimizationService {
                 .breakDuration(breakInterval)
                 .difficulty(courseDifficulty)
                 .studyMethod(profile.getPreferences().getPreferredStudyMethod())
-                .environment(profile.getPreferences().getPreferredStudyEnvironment())
+                .environment(profile.getPreferences().getPreferredEnvironment())
                 .aiOptimization(true)
                 .build();
     }
@@ -763,5 +763,29 @@ public class StudyScheduleOptimizationService {
                 return new StudyBlock(courseId, courseName, dayOfWeek, startTime, endTime, studyDuration, breakDuration, difficulty, studyMethod, environment, aiOptimization);
             }
         }
+    }
+    
+    // Helper methods for calculations
+    private double calculateGPA(List<Grade> grades) {
+        if (grades == null || grades.isEmpty()) return 0.0;
+        return grades.stream()
+            .filter(g -> g.getGradePoints() != null)
+            .mapToDouble(Grade::getGradePoints)
+            .average()
+            .orElse(0.0);
+    }
+    
+    private double calculateAttendanceRate(List<Attendance> attendances) {
+        if (attendances == null || attendances.isEmpty()) return 0.0;
+        long presentCount = attendances.stream()
+            .filter(a -> "PRESENT".equals(a.getStatus()))
+            .count();
+        return (double) presentCount / attendances.size() * 100.0;
+    }
+    
+    private double calculateStudyEfficiency(List<Grade> grades, List<Attendance> attendances) {
+        double gpa = calculateGPA(grades);
+        double attendanceRate = calculateAttendanceRate(attendances);
+        return (gpa / 4.0) * 0.6 + (attendanceRate / 100.0) * 0.4;
     }
 }
