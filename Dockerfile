@@ -11,12 +11,16 @@ RUN apt-get update && \
     tar -xzf /tmp/maven.tar.gz -C /opt && \
     mv /opt/apache-maven-3.8.6 /opt/maven && \
     rm /tmp/maven.tar.gz && \
-    chmod +x /opt/maven/bin/* || true
+    chmod +x /opt/maven/bin/* || true && \
+    ln -sf /opt/maven/bin/mvn /usr/local/bin/mvn
 
 # Set environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV MAVEN_HOME=/opt/maven
-ENV PATH=$PATH:$MAVEN_HOME/bin
+ENV PATH=$PATH:$MAVEN_HOME/bin:/usr/local/bin
+
+# Verify Maven installation
+RUN which mvn && mvn --version
 
 # Set working directory
 WORKDIR /app
