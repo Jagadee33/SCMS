@@ -67,19 +67,18 @@ public class PerformancePredictionService {
                 currentGPA, attendanceRate, gradeTrend, attendanceTrend
             );
             
-            Map<String, Object> result = Map.of(
-                "studentId", studentId,
-                "studentName", student.getFirstName() + " " + student.getLastName(),
-                "currentGPA", currentGPA,
-                "attendanceRate", attendanceRate,
-                "gradeTrend", gradeTrend,
-                "attendanceTrend", attendanceTrend,
-                "predictions", predictions,
-                "recommendations", generateRecommendations(currentGPA, attendanceRate, gradeTrend),
-                "riskLevel", calculateRiskLevel(currentGPA, attendanceRate),
-                "generatedAt", LocalDateTime.now(),
-                "cacheStatus", "FRESH_CALCULATION"
-            );
+            Map<String, Object> result = new HashMap<>();
+            result.put("studentId", studentId);
+            result.put("studentName", student.getFirstName() + " " + student.getLastName());
+            result.put("currentGPA", currentGPA);
+            result.put("attendanceRate", attendanceRate);
+            result.put("gradeTrend", gradeTrend);
+            result.put("attendanceTrend", attendanceTrend);
+            result.put("predictions", predictions);
+            result.put("recommendations", generateRecommendations(currentGPA, attendanceRate, gradeTrend));
+            result.put("riskLevel", calculateRiskLevel(currentGPA, attendanceRate));
+            result.put("generatedAt", LocalDateTime.now());
+            result.put("cacheStatus", "FRESH_CALCULATION");
             
             // Cache the result
             aiModelCache.putCachedPrediction(studentId, result);

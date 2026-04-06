@@ -152,9 +152,9 @@ public class AdvancedAnalyticsService {
         ageGroups.put("31+", 0L);
         
         Map<String, Long> departments = students.stream()
-            .filter(s -> s.getDepartment() != null)
+            .filter(s -> s.getCourse() != null)
             .collect(Collectors.groupingBy(
-                s -> s.getDepartment(),
+                s -> s.getCourse(),
                 Collectors.counting()
             ));
         
@@ -448,9 +448,9 @@ public class AdvancedAnalyticsService {
     
     private Map<String, Long> calculateFacultyDepartmentDistribution(List<Student> faculty) {
         return faculty.stream()
-            .filter(f -> f.getDepartment() != null)
+            .filter(f -> f.getCourse() != null)
             .collect(Collectors.groupingBy(
-                Student::getDepartment,
+                Student::getCourse,
                 Collectors.counting()
             ));
     }

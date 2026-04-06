@@ -390,10 +390,10 @@ public class AdminDashboardService {
         methods.put("bank_transfer", 0L);
         
         // Simplified distribution
-        methods.put("online", payments.size() / 2);
-        methods.put("cash", payments.size() / 4);
-        methods.put("check", payments.size() / 6);
-        methods.put("bank_transfer", payments.size() / 12);
+        methods.put("online", (long) payments.size() / 2);
+        methods.put("cash", (long) payments.size() / 4);
+        methods.put("check", (long) payments.size() / 6);
+        methods.put("bank_transfer", (long) payments.size() / 12);
         
         return Map.of(
             "distribution", methods,

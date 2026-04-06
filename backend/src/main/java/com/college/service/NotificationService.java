@@ -254,7 +254,7 @@ public class NotificationService {
                     .collect(Collectors.toList());
             
             double totalDue = recentPayments.stream()
-                    .filter(p -> p.getDueDate() != null && p.getDueDate().isAfter(LocalDateTime.now()))
+                    .filter(p -> p.getFee() != null && p.getFee().getDueDate() != null && p.getFee().getDueDate().isAfter(LocalDateTime.now()))
                     .mapToDouble(p -> p.getAmount() != null ? p.getAmount() : 0.0)
                     .sum();
             
@@ -270,12 +270,13 @@ public class NotificationService {
                 "channels", channels,
                 "totalDue", totalDue,
                 "upcomingPayments", recentPayments.stream()
-                    .filter(p -> p.getDueDate() != null && p.getDueDate().isAfter(LocalDateTime.now()) && 
-                               p.getDueDate().isBefore(LocalDateTime.now().plusDays(7)))
+                    .filter(p -> p.getFee() != null && p.getFee().getDueDate() != null && 
+                               p.getFee().getDueDate().isAfter(LocalDateTime.now()) && 
+                               p.getFee().getDueDate().isBefore(LocalDateTime.now().plusDays(7)))
                     .map(p -> Map.of(
                         "amount", p.getAmount(),
-                        "dueDate", p.getDueDate(),
-                        "daysUntilDue", java.time.Duration.between(LocalDateTime.now(), p.getDueDate()).toDays()
+                        "dueDate", p.getFee().getDueDate(),
+                        "daysUntilDue", java.time.Duration.between(LocalDateTime.now(), p.getFee().getDueDate()).toDays()
                     ))
                     .collect(Collectors.toList())
             );
@@ -310,7 +311,7 @@ public class NotificationService {
                         "course", exam.getCourse() != null ? exam.getCourse().getName() : "Exam",
                         "examDate", exam.getExamDate(),
                         "examType", exam.getExamType(),
-                        "location", exam.getLocation(),
+                        "location", exam.getVenue(),
                         "daysUntilExam", java.time.Duration.between(LocalDateTime.now(), exam.getExamDate()).toDays()
                     ))
                     .collect(Collectors.toList())
