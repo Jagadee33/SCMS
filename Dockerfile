@@ -1,5 +1,5 @@
 # Use Maven 3.8 OpenJDK 17 as the base image
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8-openjdk-17 AS build
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 # Use OpenJDK 17 for the runtime
-FROM openjdk:17.0.2-slim
+FROM openjdk:17-slim
 
 # Install curl for health checks
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
