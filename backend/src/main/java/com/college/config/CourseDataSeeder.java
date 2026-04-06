@@ -24,150 +24,150 @@ public class CourseDataSeeder implements CommandLineRunner {
 
     private void createSampleCourses() {
         // Computer Science Courses
-        Course cs101 = Course.builder()
-                .name("Introduction to Computer Science")
-                .code("CS101")
-                .description("Fundamental concepts of computer science and programming")
-                .department("Computer Science")
-                .instructor("Dr. Rajesh Kumar")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course cs101 = new Course(
+                "Introduction to Computer Science",
+                "CS101",
+                "Fundamental concepts of computer science and programming",
+                "Computer Science",
+                "Dr. Rajesh Kumar",
+                3,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        cs101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        cs101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
-        Course cs102 = Course.builder()
-                .name("Data Structures and Algorithms")
-                .code("CS102")
-                .description("Advanced data structures and algorithm analysis")
-                .department("Computer Science")
-                .instructor("Dr. Priya Sharma")
-                .credits(4)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Intermediate")
-                .build();
+        Course cs102 = new Course(
+                "Data Structures and Algorithms",
+                "CS102",
+                "Advanced data structures and algorithm analysis",
+                "Computer Science",
+                "Dr. Priya Sharma",
+                4,
+                "16 weeks",
+                "Active",
+                "Intermediate"
+        );
+        cs102.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        cs102.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
-        Course cs201 = Course.builder()
-                .name("Database Management Systems")
-                .code("CS201")
-                .description("Database design, SQL, and database administration")
-                .department("Computer Science")
-                .instructor("Dr. Amit Patel")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Intermediate")
-                .build();
+        Course cs201 = new Course(
+                "Database Management Systems",
+                "CS201",
+                "Database design, SQL, and database administration",
+                "Computer Science",
+                "Dr. Amit Patel",
+                3,
+                "16 weeks",
+                "Active",
+                "Intermediate"
+        );
+        cs201.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        cs201.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // Mathematics Courses
-        Course math101 = Course.builder()
-                .name("Calculus I")
-                .code("MATH101")
-                .description("Differential and integral calculus")
-                .department("Mathematics")
-                .instructor("Prof. Sunita Rao")
-                .credits(4)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course math101 = new Course(
+                "Calculus I",
+                "MATH101",
+                "Differential and integral calculus",
+                "Mathematics",
+                "Prof. Sunita Rao",
+                4,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        math101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        math101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
-        Course math102 = Course.builder()
-                .name("Linear Algebra")
-                .code("MATH102")
-                .description("Vector spaces, matrices, and linear transformations")
-                .department("Mathematics")
-                .instructor("Prof. Vijay Kumar")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Intermediate")
-                .build();
+        Course math102 = new Course(
+                "Linear Algebra",
+                "MATH102",
+                "Vector spaces, matrices, and linear transformations",
+                "Mathematics",
+                "Prof. Vijay Kumar",
+                3,
+                "16 weeks",
+                "Active",
+                "Intermediate"
+        );
+        math102.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        math102.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // Physics Courses
-        Course phys101 = Course.builder()
-                .name("Physics I")
-                .code("PHYS101")
-                .description("Mechanics, thermodynamics, and waves")
-                .department("Physics")
-                .instructor("Dr. Anjali Gupta")
-                .credits(4)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course phys101 = new Course(
+                "Physics I",
+                "PHYS101",
+                "Mechanics, thermodynamics, and waves",
+                "Physics",
+                "Dr. Anjali Gupta",
+                4,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        phys101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        phys101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // Chemistry Courses
-        Course chem101 = Course.builder()
-                .name("General Chemistry")
-                .code("CHEM101")
-                .description("Fundamental principles of chemistry")
-                .department("Chemistry")
-                .instructor("Dr. Ramesh Singh")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course chem101 = new Course(
+                "General Chemistry",
+                "CHEM101",
+                "Fundamental principles of chemistry",
+                "Chemistry",
+                "Dr. Ramesh Singh",
+                3,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        chem101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        chem101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // Business Courses
-        Course bus101 = Course.builder()
-                .name("Introduction to Business")
-                .code("BUS101")
-                .description("Fundamentals of business administration")
-                .department("Business")
-                .instructor("Prof. Meera Reddy")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course bus101 = new Course(
+                "Introduction to Business",
+                "BUS101",
+                "Fundamentals of business administration",
+                "Business",
+                "Prof. Meera Reddy",
+                3,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        bus101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        bus101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
-        Course bus201 = Course.builder()
-                .name("Financial Accounting")
-                .code("BUS201")
-                .description("Principles of financial accounting")
-                .department("Business")
-                .instructor("Dr. Sanjay Kumar")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Intermediate")
-                .build();
+        Course bus201 = new Course(
+                "Financial Accounting",
+                "BUS201",
+                "Principles of financial accounting",
+                "Business",
+                "Dr. Sanjay Kumar",
+                3,
+                "16 weeks",
+                "Active",
+                "Intermediate"
+        );
+        bus201.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        bus201.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // English Courses
-        Course eng101 = Course.builder()
-                .name("English Composition")
-                .code("ENG101")
-                .description("Academic writing and communication skills")
-                .department("English")
-                .instructor("Prof. Sarah Johnson")
-                .credits(3)
-                .duration("16 weeks")
-                .startDate(java.time.LocalDate.of(2024, 8, 1))
-                .endDate(java.time.LocalDate.of(2024, 12, 15))
-                .status("Active")
-                .level("Beginner")
-                .build();
+        Course eng101 = new Course(
+                "English Composition",
+                "ENG101",
+                "Academic writing and communication skills",
+                "English",
+                "Prof. Sarah Johnson",
+                3,
+                "16 weeks",
+                "Active",
+                "Beginner"
+        );
+        eng101.setStartDate(java.time.LocalDate.of(2024, 8, 1));
+        eng101.setEndDate(java.time.LocalDate.of(2024, 12, 15));
 
         // Save all courses
         courseRepository.save(cs101);
