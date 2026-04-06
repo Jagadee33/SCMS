@@ -289,9 +289,9 @@ public class NotificationService {
     
     private Map<String, Object> processExamNotification(Notification notification, Long recipientId) {
         try {
-            // Get upcoming exams
-            List<Examination> upcomingExams = examinationRepository.findByStudentId(recipientId)
-                    .stream()
+            // Get upcoming exams - simplified approach
+            List<Examination> allExams = examinationRepository.findAll();
+            List<Examination> upcomingExams = allExams.stream()
                     .filter(exam -> exam.getExamDate() != null && exam.getExamDate().isAfter(LocalDateTime.now()))
                     .sorted((e1, e2) -> e1.getExamDate().compareTo(e2.getExamDate()))
                     .limit(3)

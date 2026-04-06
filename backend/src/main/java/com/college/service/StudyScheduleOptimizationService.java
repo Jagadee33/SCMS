@@ -77,7 +77,7 @@ public class StudyScheduleOptimizationService {
         StudyPreferences preferences = identifyStudyPreferences(student, grades, attendances);
         
         return StudentPerformanceProfile.builder()
-                .studentId(studentId)
+                .studentId(student.getId())
                 .gpa(gpa)
                 .attendanceRate(attendanceRate)
                 .learningPattern(learningPattern)
@@ -119,7 +119,7 @@ public class StudyScheduleOptimizationService {
     
     private StudyPreferences identifyStudyPreferences(Student student, List<Grade> grades, List<Attendance> attendances) {
         return StudyPreferences.builder()
-                .preferredStudyDuration(calculateOptimalStudyDuration(attendances))
+                .preferredStudyDuration(calculateOptimalStudyDuration(grades))
                 .preferredBreakInterval(calculateOptimalBreakInterval(grades))
                 .preferredStudyMethod(identifyPreferredStudyMethod(grades))
                 .preferredEnvironment(calculatePreferredStudyEnvironment(attendances))
@@ -253,8 +253,8 @@ public class StudyScheduleOptimizationService {
                 .courseName(enrollment.getCourse().getName())
                 .dayOfWeek(currentDay)
                 .startTime(calculateOptimalStartTime(currentTime, profile))
-                .endTime(calculateOptimalStartTime(currentTime, profile).plusMinutes(adjustedDuration))
-                .studyDuration(adjustedDuration)
+                .endTime(calculateOptimalStartTime(currentTime, profile).plusMinutes((long) adjustedDuration))
+                .studyDuration((int) adjustedDuration)
                 .breakDuration(breakInterval)
                 .difficulty(courseDifficulty)
                 .studyMethod(profile.getPreferences().getPreferredStudyMethod())
