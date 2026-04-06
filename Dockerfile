@@ -6,11 +6,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Java 17 and Maven
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk wget && \
-    wget -q https://archive.apache.org/dist/maven/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz && \
-    tar -xzf apache-maven-3.8.6-bin.tar.gz && \
-    mv apache-maven-3.8.6 /opt/maven && \
-    rm apache-maven-3.8.6-bin.tar.gz
+    apt-get install -y openjdk-17-jdk wget curl unzip && \
+    wget -q https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz -O /tmp/maven.tar.gz && \
+    tar -xzf /tmp/maven.tar.gz -C /opt && \
+    mv /opt/apache-maven-3.8.6 /opt/maven && \
+    rm /tmp/maven.tar.gz && \
+    chmod +x /opt/maven/bin/*
 
 # Set environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
