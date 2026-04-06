@@ -58,7 +58,7 @@ public class EnrollmentService {
         }
 
         // Check course capacity (if needed)
-        Long currentEnrollments = enrollmentRepository.countActiveEnrollmentsByCourse(course);
+        enrollmentRepository.countActiveEnrollmentsByCourse(course);
         // You can add capacity logic here if needed
 
         // Create enrollment

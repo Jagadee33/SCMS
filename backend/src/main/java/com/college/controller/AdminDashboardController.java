@@ -1,8 +1,7 @@
 package com.college.controller;
 
 import com.college.service.AdminDashboardService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,12 +9,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
-@RequiredArgsConstructor
-@Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class AdminDashboardController {
     
-    private final AdminDashboardService adminDashboardService;
+    @Autowired
+    private AdminDashboardService adminDashboardService;
     
     // Get comprehensive admin dashboard
     @GetMapping("/dashboard")
@@ -27,7 +25,7 @@ public class AdminDashboardController {
                 "data", dashboard
             ));
         } catch (Exception e) {
-            log.error("Error generating admin dashboard", e);
+            System.err.println("Error generating admin dashboard: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -45,7 +43,7 @@ public class AdminDashboardController {
                 "data", overview
             ));
         } catch (Exception e) {
-            log.error("Error getting system overview", e);
+            System.err.println("Error getting system overview: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -63,7 +61,7 @@ public class AdminDashboardController {
                 "data", metrics
             ));
         } catch (Exception e) {
-            log.error("Error getting user management metrics", e);
+            System.err.println("Error getting user management metrics: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -81,7 +79,7 @@ public class AdminDashboardController {
                 "data", metrics
             ));
         } catch (Exception e) {
-            log.error("Error getting academic metrics", e);
+            System.err.println("Error getting academic metrics", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -99,7 +97,7 @@ public class AdminDashboardController {
                 "data", overview
             ));
         } catch (Exception e) {
-            log.error("Error getting financial overview", e);
+            System.err.println("Error getting financial overview", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -117,7 +115,7 @@ public class AdminDashboardController {
                 "data", health
             ));
         } catch (Exception e) {
-            log.error("Error getting system health metrics", e);
+            System.err.println("Error getting system health metrics", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -135,7 +133,7 @@ public class AdminDashboardController {
                 "data", metrics
             ));
         } catch (Exception e) {
-            log.error("Error getting operational metrics", e);
+            System.err.println("Error getting operational metrics", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -153,7 +151,7 @@ public class AdminDashboardController {
                 "data", metrics
             ));
         } catch (Exception e) {
-            log.error("Error getting security metrics", e);
+            System.err.println("Error getting security metrics", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -171,7 +169,7 @@ public class AdminDashboardController {
                 "data", activities
             ));
         } catch (Exception e) {
-            log.error("Error getting recent activities", e);
+            System.err.println("Error getting recent activities", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -189,7 +187,7 @@ public class AdminDashboardController {
                 "data", alerts
             ));
         } catch (Exception e) {
-            log.error("Error getting system alerts", e);
+            System.err.println("Error getting system alerts", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -244,7 +242,7 @@ public class AdminDashboardController {
                 "data", reportData
             ));
         } catch (Exception e) {
-            log.error("Error generating custom report", e);
+            System.err.println("Error generating custom report", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -272,7 +270,7 @@ public class AdminDashboardController {
                 "data", exportData
             ));
         } catch (Exception e) {
-            log.error("Error exporting dashboard data", e);
+            System.err.println("Error exporting dashboard data", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()
@@ -301,7 +299,7 @@ public class AdminDashboardController {
                 "message", "Admin dashboard test completed successfully"
             ));
         } catch (Exception e) {
-            log.error("Error testing admin dashboard", e);
+            System.err.println("Error testing admin dashboard", e);
             return ResponseEntity.badRequest().body(Map.of(
                 "success", false,
                 "error", e.getMessage()

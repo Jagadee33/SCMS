@@ -2,8 +2,7 @@ package com.college.service;
 
 import com.college.model.*;
 import com.college.repository.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,18 +13,29 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 @Transactional
 public class AdvancedAnalyticsService {
     
-    private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
-    private final GradeRepository gradeRepository;
-    private final AttendanceRepository attendanceRepository;
-    private final EnrollmentRepository enrollmentRepository;
-    private final PaymentRepository paymentRepository;
-    private final ExaminationRepository examinationRepository;
+    @Autowired
+    private StudentRepository studentRepository;
+    
+    @Autowired
+    private CourseRepository courseRepository;
+    
+    @Autowired
+    private GradeRepository gradeRepository;
+    
+    @Autowired
+    private AttendanceRepository attendanceRepository;
+    
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
+    
+    @Autowired
+    private PaymentRepository paymentRepository;
+    
+    @Autowired
+    private ExaminationRepository examinationRepository;
     
     // Generate comprehensive system analytics
     public Map<String, Object> generateSystemAnalytics() {
@@ -42,7 +52,7 @@ public class AdvancedAnalyticsService {
                 "riskIndicators", generateRiskIndicators()
             );
         } catch (Exception e) {
-            log.error("Error generating system analytics", e);
+            System.err.println("Error generating system analytics: " + e.getMessage());
             return Map.of("error", "Analytics generation failed: " + e.getMessage());
         }
     }
