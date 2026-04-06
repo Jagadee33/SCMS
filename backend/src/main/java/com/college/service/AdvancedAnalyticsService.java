@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -47,7 +48,7 @@ public class AdvancedAnalyticsService {
     }
     
     // System overview metrics
-    private Map<String, Object> generateSystemOverview() {
+    public Map<String, Object> generateSystemOverview() {
         long totalStudents = studentRepository.count();
         long totalCourses = courseRepository.count();
         long totalFaculty = studentRepository.countByRole("FACULTY");
@@ -67,7 +68,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Advanced student analytics
-    private Map<String, Object> generateStudentAnalytics() {
+    public Map<String, Object> generateStudentAnalytics() {
         List<Student> allStudents = studentRepository.findAll();
         
         // Performance distribution
@@ -120,8 +121,8 @@ public class AdvancedAnalyticsService {
         
         // Calculate trends for last 12 months
         for (int i = 11; i >= 0; i--) {
-            LocalDateTime monthStart = now.minus(i, ChronoUnit.MONTHS).withDayOfMonth(1).withHour(0).withMinute(0);
-            LocalDateTime monthEnd = monthStart.plusMonths(1).minusDays(1);
+            LocalDate monthStart = now.minus(i, ChronoUnit.MONTHS).withDayOfMonth(1).toLocalDate();
+            LocalDate monthEnd = monthStart.plusMonths(1).minusDays(1);
             
             long enrollments = enrollmentRepository.countByDateRange(monthStart, monthEnd);
             long dropouts = calculateDropouts(monthStart, monthEnd);
@@ -139,7 +140,7 @@ public class AdvancedAnalyticsService {
         return trends;
     }
     
-    private long calculateDropouts(LocalDateTime start, LocalDateTime end) {
+    private long calculateDropouts(LocalDate start, LocalDate end) {
         // Simplified dropout calculation based on enrollment status
         return 0; // Would need actual dropout tracking in real system
     }
@@ -307,7 +308,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Course analytics
-    private Map<String, Object> generateCourseAnalytics() {
+    public Map<String, Object> generateCourseAnalytics() {
         List<Course> allCourses = courseRepository.findAll();
         
         // Course popularity
@@ -322,14 +323,14 @@ public class AdvancedAnalyticsService {
                 long enrollmentCount = enrollmentRepository.countByCourse(course);
                 double avgGrade = calculateCourseAverageGrade(course);
                 
-                return Map.of(
-                    "courseId", course.getId(),
-                    "courseName", course.getName(),
-                    "enrollmentCount", enrollmentCount,
-                    "averageGrade", avgGrade,
-                    "completionRate", calculateCourseCompletionRate(course),
-                    "popularityScore", calculatePopularityScore(enrollmentCount, avgGrade)
-                );
+                Map<String, Object> courseMap = new HashMap<>();
+                courseMap.put("courseId", course.getId());
+                courseMap.put("courseName", course.getName());
+                courseMap.put("enrollmentCount", enrollmentCount);
+                courseMap.put("averageGrade", avgGrade);
+                courseMap.put("completionRate", calculateCourseCompletionRate(course));
+                courseMap.put("popularityScore", calculatePopularityScore(enrollmentCount, avgGrade));
+                return courseMap;
             })
             .collect(Collectors.toList());
         
@@ -403,7 +404,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Faculty analytics
-    private Map<String, Object> generateFacultyAnalytics() {
+    public Map<String, Object> generateFacultyAnalytics() {
         List<Student> faculty = studentRepository.findByRole("FACULTY");
         
         // Faculty workload
@@ -501,7 +502,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Financial analytics
-    private Map<String, Object> generateFinancialAnalytics() {
+    public Map<String, Object> generateFinancialAnalytics() {
         List<Payment> allPayments = paymentRepository.findAll();
         
         // Revenue trends
@@ -606,7 +607,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Performance metrics
-    private Map<String, Object> generatePerformanceMetrics() {
+    public Map<String, Object> generatePerformanceMetrics() {
         return Map.of(
             "systemHealth", calculateSystemHealthMetrics(),
             "userEngagement", calculateUserEngagementMetrics(),
@@ -662,7 +663,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Trends analysis
-    private Map<String, Object> generateTrendsAnalysis() {
+    public Map<String, Object> generateTrendsAnalysis() {
         return Map.of(
             "enrollmentTrends", generateEnrollmentTrends(),
             "performanceTrends", generatePerformanceTrends(),
@@ -757,7 +758,7 @@ public class AdvancedAnalyticsService {
     }
     
     // Risk indicators
-    private Map<String, Object> generateRiskIndicators() {
+    public Map<String, Object> generateRiskIndicators() {
         return Map.of(
             "overallRiskLevel", "low",
             "criticalRisks", List.of(

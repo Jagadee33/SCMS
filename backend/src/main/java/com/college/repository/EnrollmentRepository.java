@@ -63,4 +63,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
     // Get credits earned by student
     @Query("SELECT COALESCE(SUM(e.creditsEarned), 0) FROM Enrollment e WHERE e.student = :student AND e.status = 'COMPLETED'")
     Double calculateCreditsEarned(@Param("student") Student student);
+
+    // Count enrollments by course (all statuses)
+    @Query("SELECT COUNT(e) FROM Enrollment e WHERE e.course = :course")
+    Long countByCourse(@Param("course") Course course);
+
+    // Count enrollments by date range
+    @Query("SELECT COUNT(e) FROM Enrollment e WHERE e.enrollmentDate BETWEEN :startDate AND :endDate")
+    Long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
