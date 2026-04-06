@@ -1,0 +1,211 @@
+package com.college.controller;
+
+import com.college.model.Payment;
+import com.college.service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+@RestController
+@RequestMapping("/api/payment-transactions")
+@CrossOrigin(origins = "http://localhost:3000")
+public class PaymentController {
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @GetMapping
+    public ResponseEntity<List<Payment>> getAllPayments() {
+        List<Payment> payments = paymentService.getAllPayments();
+        return ResponseEntity.ok(payments);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
+        Payment payment = paymentService.getPaymentById(id);
+        if (payment != null) {
+            return ResponseEntity.ok(payment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<Payment>> getPaymentsByStudent(@PathVariable Long studentId) {
+        List<Payment> payments = paymentService.getPaymentsByStudent(studentId);
+        return ResponseEntity.ok(payments);
+    }
+
+    @GetMapping("/fee/{feeId}")
+    public ResponseEntity<List<Payment>> getPaymentsByFee(@PathVariable Long feeId) {
+        List<Payment> payments = paymentService.getPaymentsByFee(feeId);
+        return ResponseEntity.ok(payments);
+    }
+
+    @PostMapping
+    public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {
+        try {
+            Payment createdPayment = paymentService.createPayment(payment);
+            return ResponseEntity.ok(createdPayment);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/process")
+    public ResponseEntity<?> processPayment(@RequestBody Map<String, Object> paymentData) {
+        try {
+            Long feeId = ((Number) paymentData.get("feeId")).longValue();
+            Long studentId = ((Number) paymentData.get("studentId")).longValue();
+            Double amount = ((Number) paymentData.get("amount")).doubleValue();
+            String paymentMethod = (String) paymentData.get("paymentMethod");
+            String gatewayName = (String) paymentData.get("gatewayName");
+            String gatewayTransactionId = (String) paymentData.get("gatewayTransactionId");
+            String gatewayResponse = (String) paymentData.get("gatewayResponse");
+
+            Payment payment = paymentService.processPayment(
+                feeId, studentId, amount, paymentMethod, 
+                gatewayName, gatewayTransactionId, gatewayResponse
+            );
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("payment", payment);
+            response.put("message", "Payment processed successfully");
+
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Payment> updatePaymentStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> statusData) {
+        
+        String status = (String) statusData.get("status");
+        String gatewayResponse = (String) statusData.get("gatewayResponse");
+        
+        Payment updatedPayment = paymentService.updatePaymentStatus(id, status, gatewayResponse);
+        if (updatedPayment != null) {
+            return ResponseEntity.ok(updatedPayment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/refund")
+    public ResponseEntity<?> refundPayment(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> refundData) {
+        
+        try {
+            Double refundAmount = ((Number) refundData.get("refundAmount")).doubleValue();
+            String refundReason = (String) refundData.get("refundReason");
+
+            Payment refundedPayment = paymentService.refundPayment(id, refundAmount, refundReason);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("payment", refundedPayment);
+            response.put("message", "Payment refunded successfully");
+
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/date-range")
+    public ResponseEntity<List<Payment>> getPaymentsByDateRange(
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate) {
+        
+        LocalDateTime start = startDate != null ? LocalDateTime.parse(startDate) : LocalDateTime.now().minusMonths(1);
+        LocalDateTime end = endDate != null ? LocalDateTime.parse(endDate) : LocalDateTime.now();
+        
+        List<Payment> payments = paymentService.getPaymentsByDateRange(start, end);
+        return ResponseEntity.ok(payments);
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Payment>> getPaymentsByStatus(@PathVariable String status) {
+        List<Payment> payments = paymentService.getPaymentsByStatus(status);
+        return ResponseEntity.ok(payments);
+    }
+
+    @GetMapping("/method/{method}")
+    public ResponseEntity<List<Payment>> getPaymentsByMethod(@PathVariable String method) {
+        List<Payment> payments = paymentService.getPaymentsByMethod(method);
+        return ResponseEntity.ok(payments);
+    }
+
+    @GetMapping("/student/{studentId}/total")
+    public ResponseEntity<Map<String, Object>> getStudentPaymentTotal(@PathVariable Long studentId) {
+        Double totalPaid = paymentService.getTotalPaymentsByStudent(studentId);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("studentId", studentId);
+        response.put("totalPaid", totalPaid);
+        
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getPaymentStats() {
+        Long successfulCount = paymentService.getSuccessfulPaymentsCount();
+        Long failedCount = paymentService.getFailedPaymentsCount();
+        Long pendingCount = paymentService.getPendingPaymentsCount();
+        Double totalAmount = paymentService.getTotalSuccessfulPayments();
+        
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("successfulCount", successfulCount);
+        stats.put("failedCount", failedCount);
+        stats.put("pendingCount", pendingCount);
+        stats.put("totalAmount", totalAmount);
+        stats.put("successRate", (successfulCount + failedCount) > 0 ? 
+            (successfulCount.doubleValue() / (successfulCount + failedCount)) * 100 : 0);
+        
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/transaction/{transactionId}")
+    public ResponseEntity<Payment> getPaymentByTransactionId(@PathVariable String transactionId) {
+        return paymentService.findByTransactionId(transactionId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/receipt/{receiptNumber}")
+    public ResponseEntity<Payment> getPaymentByReceiptNumber(@PathVariable String receiptNumber) {
+        return paymentService.findByReceiptNumber(receiptNumber)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/gateway/{gatewayTransactionId}")
+    public ResponseEntity<Payment> getPaymentByGatewayTransactionId(@PathVariable String gatewayTransactionId) {
+        return paymentService.findByGatewayTransactionId(gatewayTransactionId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
+        boolean deleted = paymentService.deletePayment(id);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}
