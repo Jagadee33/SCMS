@@ -11,7 +11,7 @@ RUN apt-get update && \
     tar -xzf /tmp/maven.tar.gz -C /opt && \
     mv /opt/apache-maven-3.8.6 /opt/maven && \
     rm /tmp/maven.tar.gz && \
-    chmod +x /opt/maven/bin/*
+    chmod +x /opt/maven/bin/* || true
 
 # Set environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
